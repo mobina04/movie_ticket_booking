@@ -29,8 +29,21 @@ const userSchema = new mongoose.Schema({
   password: String,
 });
 
+const screenSchema = new mongoose.Schema({
+  movie_id: mongoose.Schema.Types.ObjectId,
+  room_id: mongoose.Schema.Types.ObjectId,
+  screening_time: Date,
+});
+
+const roomSchema = new mongoose.Schema({
+  room_name: String,
+  capacity: Number,
+});
+
 const Movie = mongoose.model("Movie", movieSchema, "movie");
 const User = mongoose.model("User", userSchema, "user");
+const Screen = mongoose.model("Screen", screenSchema, "screen");
+const Room = mongoose.model("Room", roomSchema, "room");
 
 app.get("/api/movies", async (req, res) => {
   try {
@@ -61,12 +74,41 @@ app.post("/api/login", async (req, res) => {
 app.post("/api/signup", async (req, res) => {
   const { name, email, password } = req.body;
   try {
-    const user = new User({ name, email, password });
-    await user.save();
-    res.json({ message: "User registered successfully", user });
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already registered" });
+    }
+    const newUser = new User({ name, email, password });
+    await newUser.save();
+    res
+      .status(201)
+      .json({ message: "User registered successfully", user: newUser });
   } catch (error) {
     console.error("Error during signup:", error);
     res.status(500).send("Error during signup");
+  }
+});
+
+app.get("/api/screens", async (req, res) => {
+  const { movie_id } = req.query;
+  try {
+    const screens = await Screen.find({ movie_id });
+    console.log("Fetched screens from DB:", screens); // Log fetched screens
+    res.json(screens);
+  } catch (error) {
+    console.error("Error fetching screens:", error);
+    res.status(500).send("Error fetching screens");
+  }
+});
+
+app.get("/api/rooms", async (req, res) => {
+  try {
+    const rooms = await Room.find();
+    console.log("Fetched rooms from DB:", rooms); // Log fetched rooms
+    res.json(rooms);
+  } catch (error) {
+    console.error("Error fetching rooms:", error);
+    res.status(500).send("Error fetching rooms");
   }
 });
 

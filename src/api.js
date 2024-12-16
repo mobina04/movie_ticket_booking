@@ -35,3 +35,23 @@ export const signupUser = async (name, email, password) => {
     return null;
   }
 };
+
+export const fetchScreensByMovieId = async (movieId) => {
+  try {
+    const response = await axios.get(`${API_URL}/screens?movie_id=${movieId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching screens:", error);
+    return [];
+  }
+};
+
+export const fetchRooms = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/rooms`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching rooms:", error);
+    return [];
+  }
+};

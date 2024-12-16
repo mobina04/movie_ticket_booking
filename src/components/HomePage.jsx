@@ -7,7 +7,7 @@ import {
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
-import Sidebar from "./Sidebar";
+import { Link } from "react-router-dom";
 import NavBar from "./NavBar";
 import { fetchMovies } from "../api";
 
@@ -17,7 +17,6 @@ const HomePage = () => {
   useEffect(() => {
     const getMovies = async () => {
       const data = await fetchMovies();
-      console.log("Fetched movies:", data); // Log the fetched movies
       setMovies(data);
     };
 
@@ -26,7 +25,6 @@ const HomePage = () => {
 
   return (
     <div className="flex h-screen bg-gray-100">
-      {/* <Sidebar /> */}
       <div className="flex flex-col flex-1 h-full overflow-y-auto">
         <NavBar />
         <div className="container mx-auto p-4 flex-1">
@@ -45,17 +43,19 @@ const HomePage = () => {
                     <Typography variant="h5" className="mb-2">
                       {movie.title}
                     </Typography>
-                    <Typography variant="body2" className="mb-4">
+                    <Typography variant="paragraph" className="mb-4">
                       Genre: {movie.genre}
                     </Typography>
-                    <Typography variant="body2" className="mb-4">
+                    <Typography variant="paragraph" className="mb-4">
                       Duration: {movie.duration} minutes
                     </Typography>
                   </CardBody>
                   <CardFooter className="text-center">
-                    <Button color="gray" size="lg" className="w-full">
-                      Book Now
-                    </Button>
+                    <Link to={`/booking/${movie._id}`}>
+                      <Button color="gray" size="lg" className="w-full">
+                        Book Now
+                      </Button>
+                    </Link>
                   </CardFooter>
                 </Card>
               ))
