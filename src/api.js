@@ -12,52 +12,26 @@ export const fetchMovies = async () => {
   }
 };
 
-export const fetchBookings = async () => {
+export const loginUser = async (email, password) => {
   try {
-    const response = await axios.get(`${API_URL}/bookings`);
+    const response = await axios.post(`${API_URL}/login`, { email, password });
     return response.data;
   } catch (error) {
-    console.error("Error fetching bookings:", error);
-    return [];
+    console.error("Error logging in:", error);
+    return null;
   }
 };
 
-export const fetchRooms = async () => {
+export const signupUser = async (name, email, password) => {
   try {
-    const response = await axios.get(`${API_URL}/rooms`);
+    const response = await axios.post(`${API_URL}/signup`, {
+      name,
+      email,
+      password,
+    });
     return response.data;
   } catch (error) {
-    console.error("Error fetching rooms:", error);
-    return [];
-  }
-};
-
-export const fetchScreens = async () => {
-  try {
-    const response = await axios.get(`${API_URL}/screens`);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching screens:", error);
-    return [];
-  }
-};
-
-export const fetchSeats = async () => {
-  try {
-    const response = await axios.get(`${API_URL}/seats`);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching seats:", error);
-    return [];
-  }
-};
-
-export const fetchUsers = async () => {
-  try {
-    const response = await axios.get(`${API_URL}/users`);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching users:", error);
-    return [];
+    console.error("Error signing up:", error);
+    return null;
   }
 };
