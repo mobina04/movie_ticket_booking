@@ -1,0 +1,21 @@
+[{
+  "_id": {
+    "$oid": "675560ad1e4870872b7f7bcf"
+  },
+  "room_name": "Room 1",
+  "capacity": 30
+},
+{
+  "_id": {
+    "$oid": "675aceecffd3aaa0ceda1240"
+  },
+  "room_name": "Room 2",
+  "capacity": 40
+},
+{
+  "_id": {
+    "$oid": "675acef7ffd3aaa0ceda1242"
+  },
+  "room_name": "Room 3",
+  "capacity": 50
+}]

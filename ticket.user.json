@@ -1,0 +1,177 @@
+[{
+  "_id": {
+    "$oid": "675ae651ffd3aaa0ceda1470"
+  },
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "securepassword"
+},
+{
+  "_id": {
+    "$oid": "675ae651ffd3aaa0ceda1471"
+  },
+  "name": "Jane Smith",
+  "email": "jane@example.com",
+  "password": "securepassword1"
+},
+{
+  "_id": {
+    "$oid": "675ae651ffd3aaa0ceda1472"
+  },
+  "name": "Alice Johnson",
+  "email": "alice@example.com",
+  "password": "securepassword2"
+},
+{
+  "_id": {
+    "$oid": "675ae651ffd3aaa0ceda1473"
+  },
+  "name": "Bob Brown",
+  "email": "bob@example.com",
+  "password": "securepassword3"
+},
+{
+  "_id": {
+    "$oid": "675ae651ffd3aaa0ceda1474"
+  },
+  "name": "Charlie Davis",
+  "email": "charlie@example.com",
+  "password": "securepassword4"
+},
+{
+  "_id": {
+    "$oid": "675ae651ffd3aaa0ceda1475"
+  },
+  "name": "Diana Evans",
+  "email": "diana@example.com",
+  "password": "securepassword5"
+},
+{
+  "_id": {
+    "$oid": "675ae651ffd3aaa0ceda1476"
+  },
+  "name": "Frank Green",
+  "email": "frank@example.com",
+  "password": "securepassword6"
+},
+{
+  "_id": {
+    "$oid": "675ae651ffd3aaa0ceda1477"
+  },
+  "name": "Grace Hall",
+  "email": "grace@example.com",
+  "password": "securepassword7"
+},
+{
+  "_id": {
+    "$oid": "675ae651ffd3aaa0ceda1478"
+  },
+  "name": "Hank Harris",
+  "email": "hank@example.com",
+  "password": "securepassword8"
+},
+{
+  "_id": {
+    "$oid": "675ae651ffd3aaa0ceda1479"
+  },
+  "name": "Ivy Jackson",
+  "email": "ivy@example.com",
+  "password": "securepassword9"
+},
+{
+  "_id": {
+    "$oid": "675ae651ffd3aaa0ceda147a"
+  },
+  "name": "Jack King",
+  "email": "jack@example.com",
+  "password": "securepassword10"
+},
+{
+  "_id": {
+    "$oid": "675ae651ffd3aaa0ceda147b"
+  },
+  "name": "Kara Lee",
+  "email": "kara@example.com",
+  "password": "securepassword11"
+},
+{
+  "_id": {
+    "$oid": "675ae651ffd3aaa0ceda147c"
+  },
+  "name": "Leo Martin",
+  "email": "leo@example.com",
+  "password": "securepassword12"
+},
+{
+  "_id": {
+    "$oid": "675ae651ffd3aaa0ceda147d"
+  },
+  "name": "Mia Nelson",
+  "email": "mia@example.com",
+  "password": "securepassword13"
+},
+{
+  "_id": {
+    "$oid": "675ae651ffd3aaa0ceda147e"
+  },
+  "name": "Nina Olson",
+  "email": "nina@example.com",
+  "password": "securepassword14"
+},
+{
+  "_id": {
+    "$oid": "675ae651ffd3aaa0ceda147f"
+  },
+  "name": "Oscar Perez",
+  "email": "oscar@example.com",
+  "password": "securepassword15"
+},
+{
+  "_id": {
+    "$oid": "675ae651ffd3aaa0ceda1480"
+  },
+  "name": "Paul Quinn",
+  "email": "paul@example.com",
+  "password": "securepassword16"
+},
+{
+  "_id": {
+    "$oid": "675ae651ffd3aaa0ceda1481"
+  },
+  "name": "Rita Roberts",
+  "email": "rita@example.com",
+  "password": "securepassword17"
+},
+{
+  "_id": {
+    "$oid": "675ae651ffd3aaa0ceda1482"
+  },
+  "name": "Steve Scott",
+  "email": "steve@example.com",
+  "password": "securepassword18"
+},
+{
+  "_id": {
+    "$oid": "675ae651ffd3aaa0ceda1483"
+  },
+  "name": "Tina Turner",
+  "email": "tina@example.com",
+  "password": "securepassword19"
+},
+{
+  "_id": {
+    "$oid": "675ae651ffd3aaa0ceda1484"
+  },
+  "name": "Uma Walker",
+  "email": "uma@example.com",
+  "password": "securepassword20"
+},
+{
+  "_id": {
+    "$oid": "675b11e0f7c3683bb43a1ec1"
+  },
+  "name": "mina",
+  "email": "mail@mail.com",
+  "password": "1234",
+  "__v": 0
+}]
