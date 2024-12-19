@@ -36,9 +36,23 @@ export const signupUser = async (name, email, password) => {
   }
 };
 
+// گرفتن تمام نمایش‌ها
+export const fetchScreens = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/all-screens`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching screens:", error);
+    return [];
+  }
+};
+
+// گرفتن نمایش‌ها براساس شناسه فیلم (movie_id)
 export const fetchScreensByMovieId = async (movieId) => {
   try {
-    const response = await axios.get(`${API_URL}/screens?movie_id=${movieId}`);
+    const response = await axios.get(`${API_URL}/screens`, {
+      params: { movie_id: movieId },
+    });
     return response.data;
   } catch (error) {
     console.error("Error fetching screens:", error);
@@ -52,6 +66,16 @@ export const fetchRooms = async () => {
     return response.data;
   } catch (error) {
     console.error("Error fetching rooms:", error);
+    return [];
+  }
+};
+
+export const fetchSeatsByScreenId = async (screenId) => {
+  try {
+    const response = await axios.get(`${API_URL}/seats?screen_id=${screenId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching seats:", error);
     return [];
   }
 };

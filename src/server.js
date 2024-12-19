@@ -1,18 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-
 const app = express();
 app.use(cors());
 app.use(express.json());
-
 mongoose
   .connect(
     "mongodb+srv://mobinamohammadimm46:mm246810@cluster0.1qxwr.mongodb.net/ticket?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
+    { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Could not connect to MongoDB", err));
@@ -35,23 +30,25 @@ const screenSchema = new mongoose.Schema({
   screening_time: Date,
 });
 
-const roomSchema = new mongoose.Schema({
-  room_name: String,
-  capacity: Number,
+const roomSchema = new mongoose.Schema({ room_name: String, capacity: Number });
+
+const seatSchema = new mongoose.Schema({
+  seat_number: String,
+  is_available: Boolean,
+  screen_id: mongoose.Schema.Types.ObjectId,
 });
 
 const Movie = mongoose.model("Movie", movieSchema, "movie");
 const User = mongoose.model("User", userSchema, "user");
 const Screen = mongoose.model("Screen", screenSchema, "screen");
 const Room = mongoose.model("Room", roomSchema, "room");
+const Seat = mongoose.model("Seat", seatSchema, "seat");
 
 app.get("/api/movies", async (req, res) => {
   try {
     const movies = await Movie.find();
-    console.log("Fetched movies from DB:", movies); // Log fetched movies
     res.json(movies);
   } catch (error) {
-    console.error("Error fetching movies:", error);
     res.status(500).send("Error fetching movies");
   }
 });
@@ -66,7 +63,6 @@ app.post("/api/login", async (req, res) => {
       res.status(400).json({ message: "Invalid email or password" });
     }
   } catch (error) {
-    console.error("Error during login:", error);
     res.status(500).send("Error during login");
   }
 });
@@ -84,19 +80,27 @@ app.post("/api/signup", async (req, res) => {
       .status(201)
       .json({ message: "User registered successfully", user: newUser });
   } catch (error) {
-    console.error("Error during signup:", error);
     res.status(500).send("Error during signup");
   }
 });
 
+// برای گرفتن تمام نمایش‌ها
+app.get("/api/all-screens", async (req, res) => {
+  try {
+    const screens = await Screen.find();
+    res.json(screens);
+  } catch (error) {
+    res.status(500).send("Error fetching screens");
+  }
+});
+
+// برای گرفتن نمایش‌ها براساس شناسه فیلم (movie_id)
 app.get("/api/screens", async (req, res) => {
   const { movie_id } = req.query;
   try {
     const screens = await Screen.find({ movie_id });
-    console.log("Fetched screens from DB:", screens); // Log fetched screens
     res.json(screens);
   } catch (error) {
-    console.error("Error fetching screens:", error);
     res.status(500).send("Error fetching screens");
   }
 });
@@ -104,11 +108,19 @@ app.get("/api/screens", async (req, res) => {
 app.get("/api/rooms", async (req, res) => {
   try {
     const rooms = await Room.find();
-    console.log("Fetched rooms from DB:", rooms); // Log fetched rooms
     res.json(rooms);
   } catch (error) {
-    console.error("Error fetching rooms:", error);
     res.status(500).send("Error fetching rooms");
+  }
+});
+
+app.get("/api/seats", async (req, res) => {
+  const { screen_id } = req.query;
+  try {
+    const seats = await Seat.find({ screen_id });
+    res.json(seats);
+  } catch (error) {
+    res.status(500).send("Error fetching seats");
   }
 });
 

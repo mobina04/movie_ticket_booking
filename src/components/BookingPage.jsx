@@ -6,7 +6,7 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
-import { useParams } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { fetchScreensByMovieId, fetchRooms, fetchMovies } from "../api";
 import NavBar from "./NavBar";
 
@@ -16,6 +16,7 @@ const BookingPage = () => {
   const [rooms, setRooms] = useState([]);
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getData = async () => {
@@ -86,14 +87,7 @@ const BookingPage = () => {
           {screens.map((screen) => {
             const room = rooms.find((room) => room._id === screen.room_id);
             return (
-              <Card key={screen._id} className="shadow-lg p-5">
-                {/* <CardHeader color="gray" className="relative h-56">
-                  <img
-                    src="https://via.placeholder.com/150"
-                    alt="Room"
-                    className="h-full w-full object-cover"
-                  />
-                </CardHeader> */}
+              <Card key={screen._id} className="shadow-lg p-3">
                 <CardBody>
                   <Typography variant="h5" className="mb-2">
                     Room: {room ? room.room_name : "N/A"}
@@ -107,7 +101,20 @@ const BookingPage = () => {
                   </Typography>
                 </CardBody>
                 <div className="text-center">
-                  <Button color="gray" size="lg" className="w-full">
+                  <Button
+                    color="gray"
+                    size="lg"
+                    className="w-full"
+                    onClick={() =>
+                      navigate(`/seats-selection/${screen._id}`, {
+                        state: {
+                          movieTitle: movie.title,
+                          roomName: room ? room.room_name : "N/A",
+                          screeningTime: screen.screening_time,
+                        },
+                      })
+                    }
+                  >
                     Select
                   </Button>
                 </div>
