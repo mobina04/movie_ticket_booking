@@ -1,16 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardBody, Typography, Button } from "@material-tailwind/react";
+import {
+  Card,
+  CardBody,
+  Typography,
+  Button,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from "@material-tailwind/react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { fetchSeatsByScreenId } from "../api";
+import { fetchSeatsByScreenId, fetchScreens } from "../api";
 import NavBar from "./NavBar";
 
 const SeatsSelectionPage = () => {
   const { screenId } = useParams();
   const location = useLocation();
   const [seats, setSeats] = useState([]);
+  const [screen, setScreen] = useState(null);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [loading, setLoading] = useState(true);
-  const seatPrice = 10;
+  const [user, setUser] = useState(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState("");
   const navigate = useNavigate();
 
   const { movieTitle, roomName, screeningTime } = location.state || {};
@@ -27,7 +39,25 @@ const SeatsSelectionPage = () => {
       }
     };
 
+    const getScreenDetails = async () => {
+      try {
+        const screensData = await fetchScreens();
+        const selectedScreen = screensData.find(
+          (screen) => screen._id === screenId
+        );
+        setScreen(selectedScreen);
+      } catch (error) {
+        console.error("Error fetching screen details:", error);
+      }
+    };
+
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+
     getSeats();
+    getScreenDetails();
   }, [screenId]);
 
   const handleSeatClick = (seat) => {
@@ -41,11 +71,28 @@ const SeatsSelectionPage = () => {
   };
 
   const handleSubmitBooking = () => {
+    if (!user) {
+      setDialogMessage("You must log in first to book your seats.");
+      setDialogOpen(true);
+      return;
+    }
+    if (selectedSeats.length === 0) {
+      setDialogMessage("You must choose at least one seat.");
+      setDialogOpen(true);
+      return;
+    }
+    // فرآیند ثبت رزرو
     console.log("Selected seats:", selectedSeats);
+    // می‌توانید اینجا فرآیند ارسال رزرو را اضافه کنید
     navigate("/confirmation"); // هدایت به صفحه تاییدیه (می‌توانید این صفحه را ایجاد کنید)
   };
 
+  const seatPrice = screen ? screen.price : 0; // گرفتن قیمت از جزئیات نمایش
   const totalCost = selectedSeats.length * seatPrice;
+
+  const closeDialog = () => {
+    setDialogOpen(false);
+  };
 
   if (loading) {
     return (
@@ -110,6 +157,30 @@ const SeatsSelectionPage = () => {
           </Button>
         </div>
       </div>
+
+      <Dialog open={dialogOpen} handler={closeDialog}>
+        <DialogHeader>Error</DialogHeader>
+        <DialogBody divider>{dialogMessage}</DialogBody>
+        <DialogFooter>
+          <Button
+            variant="text"
+            color="red"
+            onClick={closeDialog}
+            className="mr-1"
+          >
+            <span>Close</span>
+          </Button>
+          {dialogMessage.includes("log in") && (
+            <Button
+              variant="gradient"
+              color="green"
+              onClick={() => navigate("/login")}
+            >
+              <span>Log In</span>
+            </Button>
+          )}
+        </DialogFooter>
+      </Dialog>
     </div>
   );
 };
