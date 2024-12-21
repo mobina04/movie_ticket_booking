@@ -79,3 +79,25 @@ export const fetchSeatsByScreenId = async (screenId) => {
     return [];
   }
 };
+
+export const createBooking = async (bookingData) => {
+  try {
+    const response = await axios.post(`${API_URL}/bookings`, bookingData);
+    return response.data;
+  } catch (error) {
+    console.error("Error creating booking:", error);
+    return null;
+  }
+};
+
+export const fetchBookingsByUserId = async (userId) => {
+  try {
+    const response = await axios.get(`${API_URL}/bookings`, {
+      params: { user_id: userId },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching bookings:", error);
+    return [];
+  }
+};

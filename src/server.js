@@ -38,11 +38,19 @@ const seatSchema = new mongoose.Schema({
   screen_id: mongoose.Schema.Types.ObjectId,
 });
 
+const bookingSchema = new mongoose.Schema({
+  user_id: mongoose.Schema.Types.ObjectId,
+  screening_id: mongoose.Schema.Types.ObjectId,
+  seat_id: mongoose.Schema.Types.ObjectId,
+  booking_time: { type: Date, default: Date.now },
+});
+
 const Movie = mongoose.model("Movie", movieSchema, "movie");
 const User = mongoose.model("User", userSchema, "user");
 const Screen = mongoose.model("Screen", screenSchema, "screen");
 const Room = mongoose.model("Room", roomSchema, "room");
 const Seat = mongoose.model("Seat", seatSchema, "seat");
+const Booking = mongoose.model("Booking", bookingSchema, "booking");
 
 app.get("/api/movies", async (req, res) => {
   try {
@@ -124,5 +132,30 @@ app.get("/api/seats", async (req, res) => {
   }
 });
 
+app.post("/api/bookings", async (req, res) => {
+  const { user_id, screening_id, seat_ids } = req.body;
+  try {
+    const bookings = seat_ids.map((seat_id) => ({
+      user_id,
+      screening_id,
+      seat_id,
+      booking_time: new Date(),
+    }));
+    await Booking.insertMany(bookings);
+    res.status(201).json({ message: "Bookings created successfully" });
+  } catch (error) {
+    res.status(500).send("Error creating bookings");
+  }
+});
+
+app.get("/api/bookings", async (req, res) => {
+  const { user_id } = req.query;
+  try {
+    const bookings = await Booking.find({ user_id });
+    res.json(bookings);
+  } catch (error) {
+    res.status(500).send("Error fetching bookings");
+  }
+});
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

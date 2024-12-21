@@ -14,6 +14,8 @@ import BookingPage from "./components/BookingPage";
 import SeatsSelectionPage from "./components/SeatsSelectionPage";
 import GenresPage from "./components/GenresPage";
 import RoomsPage from "./components/RoomsPage";
+import ConfirmationPage from "./components/ConfirmationPage";
+import MyBookingsPage from "./components/MyBookingsPage";
 const App = () => {
   return (
     <div>
@@ -29,6 +31,8 @@ const App = () => {
           />
           <Route path="/genres" element={<GenresPage />} />
           <Route path="/rooms" element={<RoomsPage />} />
+          <Route path="/confirmation" element={<ConfirmationPage />} />
+          <Route path="/bookings" element={<MyBookingsPage />} />
         </Routes>
       </BrowserRouter>
     </div>

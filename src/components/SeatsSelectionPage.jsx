@@ -10,7 +10,7 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { fetchSeatsByScreenId, fetchScreens } from "../api";
+import { fetchSeatsByScreenId, fetchScreens, createBooking } from "../api";
 import NavBar from "./NavBar";
 
 const SeatsSelectionPage = () => {
@@ -70,7 +70,7 @@ const SeatsSelectionPage = () => {
     }
   };
 
-  const handleSubmitBooking = () => {
+  const handleSubmitBooking = async () => {
     if (!user) {
       setDialogMessage("You must log in first to book your seats.");
       setDialogOpen(true);
@@ -81,13 +81,25 @@ const SeatsSelectionPage = () => {
       setDialogOpen(true);
       return;
     }
-    // فرآیند ثبت رزرو
-    console.log("Selected seats:", selectedSeats);
-    // می‌توانید اینجا فرآیند ارسال رزرو را اضافه کنید
-    navigate("/confirmation"); // هدایت به صفحه تاییدیه (می‌توانید این صفحه را ایجاد کنید)
+
+    const bookingData = {
+      user_id: user._id,
+      screening_id: screenId,
+      seat_ids: selectedSeats,
+    };
+
+    const response = await createBooking(bookingData);
+    if (response) {
+      navigate("/confirmation");
+    } else {
+      setDialogMessage(
+        "There was an error processing your booking. Please try again."
+      );
+      setDialogOpen(true);
+    }
   };
 
-  const seatPrice = screen ? screen.price : 0; // گرفتن قیمت از جزئیات نمایش
+  const seatPrice = screen ? screen.price : 0;
   const totalCost = selectedSeats.length * seatPrice;
 
   const closeDialog = () => {
