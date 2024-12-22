@@ -34,7 +34,10 @@ const HomePage = () => {
                 <Card key={movie._id} className="shadow-lg">
                   <CardHeader color="gray" className="relative h-56 m-5">
                     <img
-                      src="https://cinemaone.net/images/movie_placeholder.png"
+                      src={
+                        movie.image_link ||
+                        "https://cinemaone.net/images/movie_placeholder.png"
+                      }
                       alt={movie.title}
                       className="h-full w-full object-cover"
                     />

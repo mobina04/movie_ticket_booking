@@ -1,7 +1,18 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const http = require("http");
+const { Server } = require("socket.io");
+
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
+
 app.use(cors());
 app.use(express.json());
 mongoose
@@ -16,6 +27,7 @@ const movieSchema = new mongoose.Schema({
   title: String,
   genre: String,
   duration: Number,
+  image_link: String,
 });
 
 const userSchema = new mongoose.Schema({
@@ -141,8 +153,18 @@ app.post("/api/bookings", async (req, res) => {
       seat_id,
       booking_time: new Date(),
     }));
+
     await Booking.insertMany(bookings);
-    res.status(201).json({ message: "Bookings created successfully" });
+    await Seat.updateMany(
+      { _id: { $in: seat_ids } },
+      { $set: { is_available: false } }
+    );
+
+    io.emit("seatsUpdated", { screen_id: screening_id }); // Emit an event to update the seats for the specific screen
+
+    res
+      .status(201)
+      .json({ message: "Bookings created and seats updated successfully" });
   } catch (error) {
     res.status(500).send("Error creating bookings");
   }
@@ -158,4 +180,4 @@ app.get("/api/bookings", async (req, res) => {
   }
 });
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));

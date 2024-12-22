@@ -11,7 +11,10 @@ import {
 } from "@material-tailwind/react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { fetchSeatsByScreenId, fetchScreens, createBooking } from "../api";
+import io from "socket.io-client";
 import NavBar from "./NavBar";
+
+const socket = io("http://localhost:5000");
 
 const SeatsSelectionPage = () => {
   const { screenId } = useParams();
@@ -32,7 +35,25 @@ const SeatsSelectionPage = () => {
       try {
         const seatsData = await fetchSeatsByScreenId(screenId);
         console.log("Fetched seatsData:", seatsData); // Log fetched seatsData
-        setSeats(seatsData);
+
+        // Sort seats by row and seat number
+        const sortedSeats = seatsData.sort((a, b) => {
+          const [rowA, numA] = [
+            a.seat_number[0],
+            parseInt(a.seat_number.slice(1)),
+          ];
+          const [rowB, numB] = [
+            b.seat_number[0],
+            parseInt(b.seat_number.slice(1)),
+          ];
+
+          if (rowA === rowB) {
+            return numA - numB;
+          }
+          return rowA.localeCompare(rowB);
+        });
+
+        setSeats(sortedSeats);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching seats:", error);
@@ -58,6 +79,17 @@ const SeatsSelectionPage = () => {
 
     getSeats();
     getScreenDetails();
+
+    // Listen for real-time updates
+    socket.on("seatsUpdated", ({ screen_id }) => {
+      if (screen_id === screenId) {
+        getSeats();
+      }
+    });
+
+    return () => {
+      socket.off("seatsUpdated");
+    };
   }, [screenId]);
 
   const handleSeatClick = (seat) => {
@@ -67,6 +99,9 @@ const SeatsSelectionPage = () => {
       } else {
         setSelectedSeats([...selectedSeats, seat._id]);
       }
+    } else {
+      setDialogMessage("Seat not available");
+      setDialogOpen(true);
     }
   };
 
@@ -151,7 +186,7 @@ const SeatsSelectionPage = () => {
               key={seat._id}
               onClick={() => handleSeatClick(seat)}
               className={`p-2 text-center rounded-full cursor-pointer h-10 ${
-                seat.is_available ? "bg-gray-400" : "bg-gray-950"
+                seat.is_available ? "bg-gray-400" : "bg-red-300"
               } ${selectedSeats.includes(seat._id) ? "bg-gray-700" : ""}`}
             >
               <Typography variant="small" color="white">
