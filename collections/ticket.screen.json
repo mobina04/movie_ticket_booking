@@ -1,0 +1,156 @@
+[{
+  "_id": {
+    "$oid": "675adb9effd3aaa0ceda1265"
+  },
+  "movie_id": {
+    "$oid": "67555fcb1e4870872b7f7bc8"
+  },
+  "room_id": {
+    "$oid": "675560ad1e4870872b7f7bcf"
+  },
+  "screening_time": "2024-12-05T19:00:00Z",
+  "price": 80000
+},
+{
+  "_id": {
+    "$oid": "675adb9effd3aaa0ceda1266"
+  },
+  "movie_id": {
+    "$oid": "67555fcb1e4870872b7f7bc8"
+  },
+  "room_id": {
+    "$oid": "675aceecffd3aaa0ceda1240"
+  },
+  "screening_time": "2024-12-06T19:00:00Z",
+  "price": 80000
+},
+{
+  "_id": {
+    "$oid": "675adb9effd3aaa0ceda1267"
+  },
+  "movie_id": {
+    "$oid": "675ace5cffd3aaa0ceda1231"
+  },
+  "room_id": {
+    "$oid": "675aceecffd3aaa0ceda1240"
+  },
+  "screening_time": "2024-12-06T12:00:00Z",
+  "price": 40000
+},
+{
+  "_id": {
+    "$oid": "675adb9effd3aaa0ceda1268"
+  },
+  "movie_id": {
+    "$oid": "675ace5cffd3aaa0ceda1231"
+  },
+  "room_id": {
+    "$oid": "675acef7ffd3aaa0ceda1242"
+  },
+  "screening_time": "2024-12-07T16:00:00Z",
+  "price": 80000
+},
+{
+  "_id": {
+    "$oid": "675adb9effd3aaa0ceda1269"
+  },
+  "movie_id": {
+    "$oid": "675ace6bffd3aaa0ceda1233"
+  },
+  "room_id": {
+    "$oid": "675560ad1e4870872b7f7bcf"
+  },
+  "screening_time": "2024-12-08T22:00:00Z",
+  "price": 100000
+},
+{
+  "_id": {
+    "$oid": "675adb9effd3aaa0ceda126a"
+  },
+  "movie_id": {
+    "$oid": "675ace6bffd3aaa0ceda1233"
+  },
+  "room_id": {
+    "$oid": "675acef7ffd3aaa0ceda1242"
+  },
+  "screening_time": "2024-12-08T18:00:00Z",
+  "price": 80000
+},
+{
+  "_id": {
+    "$oid": "675adb9effd3aaa0ceda126b"
+  },
+  "movie_id": {
+    "$oid": "675ace77ffd3aaa0ceda1235"
+  },
+  "room_id": {
+    "$oid": "675aceecffd3aaa0ceda1240"
+  },
+  "screening_time": "2024-12-05T16:00:00Z",
+  "price": 40000
+},
+{
+  "_id": {
+    "$oid": "675adb9effd3aaa0ceda126c"
+  },
+  "movie_id": {
+    "$oid": "675ace77ffd3aaa0ceda1235"
+  },
+  "room_id": {
+    "$oid": "675aceecffd3aaa0ceda1240"
+  },
+  "screening_time": "2024-12-07T16:00:00Z",
+  "price": 40000
+},
+{
+  "_id": {
+    "$oid": "675adb9effd3aaa0ceda126d"
+  },
+  "movie_id": {
+    "$oid": "675ace92ffd3aaa0ceda1237"
+  },
+  "room_id": {
+    "$oid": "675acef7ffd3aaa0ceda1242"
+  },
+  "screening_time": "2024-12-08T17:00:00Z",
+  "price": 80000
+},
+{
+  "_id": {
+    "$oid": "675adb9effd3aaa0ceda126e"
+  },
+  "movie_id": {
+    "$oid": "675ace92ffd3aaa0ceda1237"
+  },
+  "room_id": {
+    "$oid": "675560ad1e4870872b7f7bcf"
+  },
+  "screening_time": "2024-12-06T20:00:00Z",
+  "price": 80000
+},
+{
+  "_id": {
+    "$oid": "675adb9effd3aaa0ceda126f"
+  },
+  "movie_id": {
+    "$oid": "675aceb1ffd3aaa0ceda123b"
+  },
+  "room_id": {
+    "$oid": "675acef7ffd3aaa0ceda1242"
+  },
+  "screening_time": "2024-12-09T20:00:00Z",
+  "price": 80000
+},
+{
+  "_id": {
+    "$oid": "675adb9effd3aaa0ceda1270"
+  },
+  "movie_id": {
+    "$oid": "675aceb1ffd3aaa0ceda123b"
+  },
+  "room_id": {
+    "$oid": "675aceecffd3aaa0ceda1240"
+  },
+  "screening_time": "2024-12-08T20:00:00Z",
+  "price": 80000
+}]

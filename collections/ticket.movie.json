@@ -1,0 +1,48 @@
+[{
+  "_id": {
+    "$oid": "67555fcb1e4870872b7f7bc8"
+  },
+  "title": "Inception",
+  "genre": "Sci-Fi",
+  "duration": 148
+},
+{
+  "_id": {
+    "$oid": "675ace5cffd3aaa0ceda1231"
+  },
+  "title": "The Godfather",
+  "genre": "Crime",
+  "duration": 175
+},
+{
+  "_id": {
+    "$oid": "675ace6bffd3aaa0ceda1233"
+  },
+  "title": "The Dark Knight",
+  "genre": "Action",
+  "duration": 152
+},
+{
+  "_id": {
+    "$oid": "675ace77ffd3aaa0ceda1235"
+  },
+  "title": "The Lord of the Rings: The Return of the King",
+  "genre": "Drama",
+  "duration": 154
+},
+{
+  "_id": {
+    "$oid": "675ace92ffd3aaa0ceda1237"
+  },
+  "title": "Forrest Gump",
+  "genre": "Drama",
+  "duration": 142
+},
+{
+  "_id": {
+    "$oid": "675aceb1ffd3aaa0ceda123b"
+  },
+  "title": "The Shawshank Redemption",
+  "genre": "Drama",
+  "duration": 142
+}]
