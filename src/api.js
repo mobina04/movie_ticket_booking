@@ -36,6 +36,32 @@ export const signupUser = async (name, email, password) => {
   }
 };
 
+export const loginAdmin = async (email, password) => {
+  try {
+    const response = await axios.post(`${API_URL}/admin/login`, {
+      email,
+      password,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error logging in as admin:", error);
+    return null;
+  }
+};
+export const signupAdmin = async (name, email, password) => {
+  try {
+    const response = await axios.post(`${API_URL}/admin/signup`, {
+      name,
+      email,
+      password,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error signing up as admin:", error);
+    return null;
+  }
+};
+
 // گرفتن تمام نمایش‌ها
 export const fetchScreens = async () => {
   try {
@@ -99,5 +125,15 @@ export const fetchBookingsByUserId = async (userId) => {
   } catch (error) {
     console.error("Error fetching bookings:", error);
     return [];
+  }
+};
+
+export const addMovie = async (movieData) => {
+  try {
+    const response = await axios.post(`${API_URL}/movies`, movieData);
+    return response.data;
+  } catch (error) {
+    console.error("Error adding movie:", error);
+    return null;
   }
 };

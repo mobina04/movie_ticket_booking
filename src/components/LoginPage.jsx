@@ -1,20 +1,15 @@
 import React, { useState } from "react";
-import {
-  Card,
-  Input,
-  Checkbox,
-  Button,
-  Typography,
-} from "@material-tailwind/react";
+import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import NavBar from "./NavBar";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../api";
+import { loginUser, loginAdmin } from "../api";
 
 export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
   const handleLogin = async (e) => {
     e.preventDefault();
     const response = await loginUser(email, password);
@@ -23,6 +18,17 @@ export function LoginPage() {
       navigate("/");
     } else {
       setError("Invalid email or password");
+    }
+  };
+
+  const handleAdminLogin = async (e) => {
+    e.preventDefault();
+    const response = await loginAdmin(email, password);
+    if (response && response.admin) {
+      localStorage.setItem("admin", JSON.stringify(response.admin));
+      navigate("/admin");
+    } else {
+      setError("Invalid admin email or password");
     }
   };
 
@@ -78,6 +84,15 @@ export function LoginPage() {
 
             <Button type="submit" className="mt-6" fullWidth>
               Log In
+            </Button>
+            <Button
+              type="button"
+              color="gray"
+              className="mt-2"
+              fullWidth
+              onClick={handleAdminLogin}
+            >
+              Log in as Admin
             </Button>
             <Typography color="gray" className="mt-4 text-center font-normal">
               Don't have an account?{" "}

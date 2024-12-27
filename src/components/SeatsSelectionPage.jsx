@@ -107,7 +107,7 @@ const SeatsSelectionPage = () => {
 
   const handleSubmitBooking = async () => {
     if (!user) {
-      setDialogMessage("You must log in first to book your seats.");
+      setDialogMessage("You must log in as user first to book your seats.");
       setDialogOpen(true);
       return;
     }

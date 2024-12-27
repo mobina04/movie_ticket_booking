@@ -16,6 +16,8 @@ import GenresPage from "./components/GenresPage";
 import RoomsPage from "./components/RoomsPage";
 import ConfirmationPage from "./components/ConfirmationPage";
 import MyBookingsPage from "./components/MyBookingsPage";
+import AdminProfilePage from "./components/AdminProfilePage";
+import AddMoviePage from "./components/AddMoviePage";
 const App = () => {
   return (
     <div>
@@ -33,6 +35,8 @@ const App = () => {
           <Route path="/rooms" element={<RoomsPage />} />
           <Route path="/confirmation" element={<ConfirmationPage />} />
           <Route path="/bookings" element={<MyBookingsPage />} />
+          <Route path="/admin" element={<AdminProfilePage />} />
+          <Route path="/add-movie" element={<AddMoviePage />} />
         </Routes>
       </BrowserRouter>
     </div>

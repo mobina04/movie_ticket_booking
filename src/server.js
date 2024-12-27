@@ -27,10 +27,17 @@ const movieSchema = new mongoose.Schema({
   title: String,
   genre: String,
   duration: Number,
+  admin_id: mongoose.Schema.Types.ObjectId,
   image_link: String,
 });
 
 const userSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  password: String,
+});
+
+const adminSchema = new mongoose.Schema({
   name: String,
   email: String,
   password: String,
@@ -63,6 +70,7 @@ const Screen = mongoose.model("Screen", screenSchema, "screen");
 const Room = mongoose.model("Room", roomSchema, "room");
 const Seat = mongoose.model("Seat", seatSchema, "seat");
 const Booking = mongoose.model("Booking", bookingSchema, "booking");
+const Admin = mongoose.model("Admin", adminSchema, "admin");
 
 app.get("/api/movies", async (req, res) => {
   try {
@@ -70,6 +78,26 @@ app.get("/api/movies", async (req, res) => {
     res.json(movies);
   } catch (error) {
     res.status(500).send("Error fetching movies");
+  }
+});
+
+app.post("/api/movies", async (req, res) => {
+  const { title, genre, duration, image_link, admin_id } = req.body;
+  try {
+    const newMovie = new Movie({
+      title,
+      genre,
+      duration,
+      image_link,
+      admin_id,
+    });
+    await newMovie.save();
+    res
+      .status(201)
+      .json({ message: "Movie added successfully", movie: newMovie });
+  } catch (error) {
+    console.error("Error adding movie:", error);
+    res.status(500).send("Error adding movie");
   }
 });
 
@@ -104,7 +132,40 @@ app.post("/api/signup", async (req, res) => {
   }
 });
 
-// برای گرفتن تمام نمایش‌ها
+// Admin routes
+app.post("/api/admin/login", async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const admin = await Admin.findOne({ email, password });
+    if (admin) {
+      res.json({ message: "Login successful", admin });
+    } else {
+      res.status(400).json({ message: "Invalid email or password" });
+    }
+  } catch (error) {
+    console.error("Error during admin login:", error);
+    res.status(500).send("Error during admin login");
+  }
+});
+
+app.post("/api/admin/signup", async (req, res) => {
+  const { name, email, password } = req.body;
+  try {
+    const existingAdmin = await Admin.findOne({ email });
+    if (existingAdmin) {
+      return res.status(400).json({ message: "Email already registered" });
+    }
+    const newAdmin = new Admin({ name, email, password });
+    await newAdmin.save();
+    res
+      .status(201)
+      .json({ message: "Admin registered successfully", admin: newAdmin });
+  } catch (error) {
+    console.error("Error during admin signup:", error);
+    res.status(500).send("Error during admin signup");
+  }
+});
+
 app.get("/api/all-screens", async (req, res) => {
   try {
     const screens = await Screen.find();

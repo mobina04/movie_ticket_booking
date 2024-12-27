@@ -18,11 +18,13 @@ import {
   FilmIcon,
   PowerIcon,
   TicketIcon,
+  CogIcon, // Icon for Profile Panel
 } from "@heroicons/react/24/outline";
 import NavList from "./NavList";
 
 const NavBar = () => {
   const [user, setUser] = useState(null);
+  const [admin, setAdmin] = useState(null);
   const [openNav, setOpenNav] = useState(false);
   const navigate = useNavigate();
 
@@ -30,31 +32,53 @@ const NavBar = () => {
     const handleWindowResize = () =>
       window.innerWidth >= 960 && setOpenNav(false);
     window.addEventListener("resize", handleWindowResize);
+
     const savedUser = localStorage.getItem("user");
+    const savedAdmin = localStorage.getItem("admin");
+
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
+    if (savedAdmin) {
+      setAdmin(JSON.parse(savedAdmin));
+    }
+
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("admin");
     setUser(null);
+    setAdmin(null);
     navigate("/");
   };
 
-  const profileMenuItems = [
-    {
-      label: "My Bookings",
-      icon: TicketIcon,
-      action: () => navigate("/bookings"), // مسیر صفحه رزرو‌ها
-    },
-    {
-      label: "Log Out",
-      icon: PowerIcon,
-      action: handleLogout,
-    },
-  ];
+  const profileMenuItems = admin
+    ? [
+        {
+          label: "Profile Panel",
+          icon: CogIcon,
+          action: () => navigate("/admin"), // مسیر صفحه پروفایل ادمین
+        },
+        {
+          label: "Log Out",
+          icon: PowerIcon,
+          action: handleLogout,
+        },
+      ]
+    : [
+        {
+          label: "My Bookings",
+          icon: TicketIcon,
+          action: () => navigate("/bookings"), // مسیر صفحه رزرو‌ها
+        },
+        {
+          label: "Log Out",
+          icon: PowerIcon,
+          action: handleLogout,
+        },
+      ];
 
   return (
     <Navbar className="mx-auto max-w-full px-4 py-2 lg:px-8 lg:py-4">
@@ -69,14 +93,14 @@ const NavBar = () => {
           <NavList />
         </div>
         <div className="flex items-center gap-x-4">
-          {user ? (
+          {user || admin ? (
             <div className="flex items-center gap-x-2">
               <Typography
                 variant="small"
                 color="blue-gray"
                 className="font-medium mr-2"
               >
-                {user.name}
+                {user ? user.name : admin.name}
               </Typography>
               <Menu placement="bottom-end">
                 <MenuHandler>

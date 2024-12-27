@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import NavBar from "./NavBar";
 import { Link, useNavigate } from "react-router-dom";
-import { signupUser } from "../api";
+import { signupUser, signupAdmin } from "../api";
 
 export function SignupPage() {
   const [name, setName] = useState("");
@@ -19,6 +19,17 @@ export function SignupPage() {
       navigate("/");
     } else {
       setError(response.message || "Error during signup");
+    }
+  };
+
+  const handleAdminSignup = async (e) => {
+    e.preventDefault();
+    const response = await signupAdmin(name, email, password);
+    if (response && response.admin) {
+      localStorage.setItem("admin", JSON.stringify(response.admin));
+      navigate("/admin");
+    } else {
+      setError(response.message || "Error during admin signup");
     }
   };
 
@@ -86,6 +97,15 @@ export function SignupPage() {
             )}
             <Button type="submit" className="mt-6" fullWidth>
               Sign Up
+            </Button>
+            <Button
+              type="button"
+              color="gray"
+              className="mt-2"
+              fullWidth
+              onClick={handleAdminSignup}
+            >
+              Sign up as Admin
             </Button>
             <Typography color="gray" className="mt-4 text-center font-normal">
               Already have an account?{" "}
