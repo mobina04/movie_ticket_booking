@@ -107,3 +107,4 @@ The application uses Socket.IO to provide real-time updates for seat availabilit
   "image_link": "https://m.media-amazon.com/images/M/MV5BMDAyY2FhYjctNDc5OS00MDNlLThiMG..."
 }
 ```
+https://github.com/mobina04/movie_ticket_booking
