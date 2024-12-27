@@ -1,7 +1,9 @@
 import axios from "axios";
 
+// Base URL for the API
 const API_URL = "http://localhost:5000/api";
 
+// Fetch all movies from the server
 export const fetchMovies = async () => {
   try {
     const response = await axios.get(`${API_URL}/movies`);
@@ -12,6 +14,7 @@ export const fetchMovies = async () => {
   }
 };
 
+// Log in a user
 export const loginUser = async (email, password) => {
   try {
     const response = await axios.post(`${API_URL}/login`, { email, password });
@@ -22,6 +25,7 @@ export const loginUser = async (email, password) => {
   }
 };
 
+// Sign up a new user
 export const signupUser = async (name, email, password) => {
   try {
     const response = await axios.post(`${API_URL}/signup`, {
@@ -36,6 +40,7 @@ export const signupUser = async (name, email, password) => {
   }
 };
 
+// Log in an admin
 export const loginAdmin = async (email, password) => {
   try {
     const response = await axios.post(`${API_URL}/admin/login`, {
@@ -48,6 +53,8 @@ export const loginAdmin = async (email, password) => {
     return null;
   }
 };
+
+// Sign up a new admin
 export const signupAdmin = async (name, email, password) => {
   try {
     const response = await axios.post(`${API_URL}/admin/signup`, {
@@ -62,7 +69,7 @@ export const signupAdmin = async (name, email, password) => {
   }
 };
 
-// گرفتن تمام نمایش‌ها
+// Fetch all screens from the server
 export const fetchScreens = async () => {
   try {
     const response = await axios.get(`${API_URL}/all-screens`);
@@ -73,7 +80,7 @@ export const fetchScreens = async () => {
   }
 };
 
-// گرفتن نمایش‌ها براساس شناسه فیلم (movie_id)
+// Fetch screens by movie ID
 export const fetchScreensByMovieId = async (movieId) => {
   try {
     const response = await axios.get(`${API_URL}/screens`, {
@@ -86,6 +93,7 @@ export const fetchScreensByMovieId = async (movieId) => {
   }
 };
 
+// Fetch all rooms from the server
 export const fetchRooms = async () => {
   try {
     const response = await axios.get(`${API_URL}/rooms`);
@@ -96,6 +104,7 @@ export const fetchRooms = async () => {
   }
 };
 
+// Fetch seats by screen ID
 export const fetchSeatsByScreenId = async (screenId) => {
   try {
     const response = await axios.get(`${API_URL}/seats?screen_id=${screenId}`);
@@ -106,6 +115,7 @@ export const fetchSeatsByScreenId = async (screenId) => {
   }
 };
 
+// Create a new booking
 export const createBooking = async (bookingData) => {
   try {
     const response = await axios.post(`${API_URL}/bookings`, bookingData);
@@ -116,6 +126,7 @@ export const createBooking = async (bookingData) => {
   }
 };
 
+// Fetch bookings by user ID
 export const fetchBookingsByUserId = async (userId) => {
   try {
     const response = await axios.get(`${API_URL}/bookings`, {
@@ -128,6 +139,7 @@ export const fetchBookingsByUserId = async (userId) => {
   }
 };
 
+// Add a new movie
 export const addMovie = async (movieData) => {
   try {
     const response = await axios.post(`${API_URL}/movies`, movieData);

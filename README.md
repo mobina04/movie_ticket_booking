@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a movie ticket booking application that allows users to sign up, log in, book tickets, and view their bookings. Admins can also log in to add and manage movies.
+This project is a movie ticket booking application that allows users to sign up, log in, book tickets, and view their bookings. Admins can also log in to add movies.
 
 ## Features
 
@@ -10,7 +10,7 @@ This project is a movie ticket booking application that allows users to sign up,
 - Admin sign-up and login
 - Book movie tickets
 - View user bookings
-- Admin profile panel to add and manage movies
+- Admin profile panel to add movies
 - Real-time seat availability updates
 
 ## Technologies Used
@@ -88,31 +88,6 @@ This project is a movie ticket booking application that allows users to sign up,
 ### Server
 
 - `src/server.js` - Main server file
-
-## API Endpoints
-
-### User Endpoints
-
-- **POST /api/signup** - Sign up a new user
-- **POST /api/login** - Log in a user
-- **GET /api/bookings** - Get user bookings
-
-### Admin Endpoints
-
-- **POST /api/admin/signup** - Sign up a new admin
-- **POST /api/admin/login** - Log in an admin
-
-### Movie Endpoints
-
-- **GET /api/movies** - Get all movies
-- **POST /api/movies** - Add a new movie
-
-### Screen and Seat Endpoints
-
-- **GET /api/all-screens** - Get all screens
-- **GET /api/screens** - Get screens by movie ID
-- **GET /api/rooms** - Get all rooms
-- **GET /api/seats** - Get seats by screen ID
 
 ## Real-time Seat Availability
 
