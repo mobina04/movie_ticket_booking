@@ -1,70 +1,134 @@
-# Getting Started with Create React App
+# Movie Ticket Booking
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+This project is a movie ticket booking application that allows users to sign up, log in, book tickets, and view their bookings. Admins can also log in to add and manage movies.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- User sign-up and login
+- Admin sign-up and login
+- Book movie tickets
+- View user bookings
+- Admin profile panel to add and manage movies
+- Real-time seat availability updates
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Technologies Used
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- React
+- Node.js
+- Express
+- MongoDB
+- Socket.IO
+- Material Tailwind
 
-### `npm test`
+## Installation and Setup
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
 
-### `npm run build`
+- Node.js
+- MongoDB
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Steps to Run the Project
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. **Clone the repository**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```sh
+   git clone https://github.com/your-username/movie_ticket_booking.git
+   cd movie_ticket_booking
+   ```
 
-### `npm run eject`
+2. **Install dependencies**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```sh
+   npm install
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. **Set up MongoDB**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   - Create a MongoDB database and collection.
+   - Update the MongoDB connection string in `src/server.js` with your MongoDB URI.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+4. **Start the server**
 
-## Learn More
+   ```sh
+   node src/server.js
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+5. **Start the client**
+   ```sh
+   npm start
+   ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Project Structure
 
-### Code Splitting
+### Client
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- `public` - Public assets and index.html
+- `src`
+  - `components` - React components
+    - `AddMoviePage.jsx` - Page for adding new movies
+    - `AdminProfilePage.jsx` - Admin profile panel page
+    - `BookingPage.jsx` - Page for booking tickets
+    - `ConfirmationPage.jsx` - Confirmation page for bookings
+    - `GenresPage.jsx` - Page for viewing genres
+    - `HomePage.jsx` - Home page of the application
+    - `LoginPage.jsx` - User login page
+    - `MyBookingsPage.jsx` - Page for viewing user bookings
+    - `NavBar.jsx` - Navigation bar component
+    - `NavList.jsx` - List of navigation items
+    - `RoomsPage.jsx` - Page for viewing rooms
+    - `SeatsSelectionPage.jsx` - Page for selecting seats
+    - `Sidebar.jsx` - Sidebar component
+    - `SignupPage.jsx` - User signup page
+  - `App.js` - Main application component
+  - `index.js` - Entry point for the React application
+  - `api.js` - API functions
 
-### Analyzing the Bundle Size
+### Server
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- `src/server.js` - Main server file
 
-### Making a Progressive Web App
+## API Endpoints
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### User Endpoints
 
-### Advanced Configuration
+- **POST /api/signup** - Sign up a new user
+- **POST /api/login** - Log in a user
+- **GET /api/bookings** - Get user bookings
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Admin Endpoints
 
-### Deployment
+- **POST /api/admin/signup** - Sign up a new admin
+- **POST /api/admin/login** - Log in an admin
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Movie Endpoints
 
-### `npm run build` fails to minify
+- **GET /api/movies** - Get all movies
+- **POST /api/movies** - Add a new movie
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Screen and Seat Endpoints
+
+- **GET /api/all-screens** - Get all screens
+- **GET /api/screens** - Get screens by movie ID
+- **GET /api/rooms** - Get all rooms
+- **GET /api/seats** - Get seats by screen ID
+
+## Real-time Seat Availability
+
+The application uses Socket.IO to provide real-time updates for seat availability. When a user books seats, the updates are sent to all other users on the same page.
+
+## Example Objects
+
+### Movie Object
+
+```json
+{
+  "_id": "675aceb1ffd3aaa0ceda123b",
+  "title": "The Shawshank Redemption",
+  "genre": "Drama",
+  "duration": 142,
+  "admin_id": "6767d1b3dff10638d3ca7fa4",
+  "image_link": "https://m.media-amazon.com/images/M/MV5BMDAyY2FhYjctNDc5OS00MDNlLThiMG..."
+}
+```
