@@ -21,7 +21,7 @@ app.use(express.json()); // Parse incoming JSON requests
 // Connect to MongoDB
 mongoose
   .connect(
-    "mongodb+srv://mobinamohammadimm46:mm246810@cluster0.1qxwr.mongodb.net/ticket?retryWrites=true&w=majority",
+    "mongodb+srv://...",
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => console.log("Connected to MongoDB")) // Log success message
